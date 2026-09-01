@@ -12,6 +12,7 @@ if(POLICY CMP0074)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/AmentTargetDependenciesCompat.cmake)
 
 ##################
 # Set build type #
