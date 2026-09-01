@@ -16,9 +16,9 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
 
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/transform_broadcaster.h>
-#include <tf2_ros/buffer.h>
+#include <tf2_ros/transform_listener.hpp>
+#include <tf2_ros/transform_broadcaster.hpp>
+#include <tf2_ros/buffer.hpp>
 
 #include <opencv2/core/core.hpp>
 #include <sensor_msgs/msg/image.hpp>
@@ -87,14 +87,14 @@ public:
 template<class M, class NodeType = rclcpp::Node>
 class ModifiedSubscriber : public message_filters::Subscriber<M> {
 public:
-    ModifiedSubscriber(typename message_filters::Subscriber<M>::NodePtr node, const std::string& topic, const rmw_qos_profile_t qos = rmw_qos_profile_default)
+    ModifiedSubscriber(std::shared_ptr<NodeType> node, const std::string& topic, const rmw_qos_profile_t qos = rmw_qos_profile_default)
         : message_filters::Subscriber<M>(node, topic, qos) {
     }
     ModifiedSubscriber(NodeType* node, const std::string& topic, const rmw_qos_profile_t qos = rmw_qos_profile_default)
         : message_filters::Subscriber<M>(node, topic, qos) {
     }
     ModifiedSubscriber(
-        typename message_filters::Subscriber<M>::NodePtr node,
+        std::shared_ptr<NodeType> node,
         const std::string& topic,
         const rmw_qos_profile_t qos,
         rclcpp::SubscriptionOptions options)
