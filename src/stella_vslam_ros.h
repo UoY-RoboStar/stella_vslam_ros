@@ -88,24 +88,24 @@ template<class M, class NodeType = rclcpp::Node>
 class ModifiedSubscriber : public message_filters::Subscriber<M> {
 public:
     ModifiedSubscriber(std::shared_ptr<NodeType> node, const std::string& topic, const rmw_qos_profile_t qos = rmw_qos_profile_default)
-        : message_filters::Subscriber<M>(node, topic, qos) {
+        : message_filters::Subscriber<M>(node, topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(qos), qos)) {
     }
     ModifiedSubscriber(NodeType* node, const std::string& topic, const rmw_qos_profile_t qos = rmw_qos_profile_default)
-        : message_filters::Subscriber<M>(node, topic, qos) {
+        : message_filters::Subscriber<M>(node, topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(qos), qos)) {
     }
     ModifiedSubscriber(
         std::shared_ptr<NodeType> node,
         const std::string& topic,
         const rmw_qos_profile_t qos,
         rclcpp::SubscriptionOptions options)
-        : message_filters::Subscriber<M>(node, topic, qos, options) {
+        : message_filters::Subscriber<M>(node, topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(qos), qos), options) {
     }
     ModifiedSubscriber(
         NodeType* node,
         const std::string& topic,
         const rmw_qos_profile_t qos,
         rclcpp::SubscriptionOptions options)
-        : message_filters::Subscriber<M>(node, topic, qos, options) {
+        : message_filters::Subscriber<M>(node, topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(qos), qos), options) {
     }
     void cb(const typename message_filters::Subscriber<M>::MConstPtr& msg) {
         this->signalMessage(msg);
